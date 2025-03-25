@@ -1,0 +1,18 @@
+<div class="main">
+    <div class="form">
+<form action="" [formGroup]="loginForm">
+    <div class="input">
+    <label for="Email">Email</label>
+    <input type="text" placeholder="Enter email" formControlName="email">
+   </div>
+    
+   <div class="input">
+    <label  for="password">Password</label>
+    <input type="password" placeholder="Enter password" formControlName="password">
+   </div>
+
+    <button style=" font-family: 'Poppins', sans-serif;" (click)="login()">Login</button>
+</form>
+</div>
+</div>
+
