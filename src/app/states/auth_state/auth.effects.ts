@@ -46,14 +46,15 @@ export class AuthEffects {
               const bearerToken = token.substring(7); // Remove 'Bearer ' prefix
               const user = res.body;
               const role = user?.role || null;
-              const expirationDate = new Date(new Date().getTime() + 60 * 60 * 1000); // Example: 1 hour expiry
+              const expirationTime = user?.tokenExpiration; // 5 minutes expiry
+ 
 
               localStorage.setItem('c_token', bearerToken);
               localStorage.setItem('c_user', JSON.stringify(user));
-              localStorage.setItem('expirationDate', expirationDate.toISOString());
+              localStorage.setItem('expirationDate',  new Date(expirationTime).toISOString());
 
 
-              return loginSuccess({ token: bearerToken, role, expirationDate });
+              return loginSuccess({ token: bearerToken, role,  expirationDate: new Date(expirationTime) });
             }),
             catchError((error) =>
               of(loginFailure({ error: error.message || 'Login failed' }))
@@ -70,6 +71,7 @@ export class AuthEffects {
         tap(() => {
           localStorage.removeItem('c_token');
           localStorage.removeItem('c_user');
+          localStorage.removeItem('expirationDate')
           this.router.navigate(['/login']);
         })
       ),

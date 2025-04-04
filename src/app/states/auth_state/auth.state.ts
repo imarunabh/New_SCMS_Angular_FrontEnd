@@ -3,7 +3,6 @@ export interface AuthState {
     role: string | null;
     expirationDate: Date | null;
     isExpired:boolean
-    
   }
   
   export const initialState: AuthState = {
